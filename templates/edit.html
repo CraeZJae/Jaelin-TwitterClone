@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<section class="content">
+    <section class="main">
+        <div class="main-header">
+         <img src="{% static 'img/The-Flash.png' %}">
+         <h1>Edit</h1>
+        </div> 
+    </section>
+
+    <section class="posts_form">
+        <div class="my-icon">
+         <img src="{% static 'img/profile.png' %}">
+        </div>
+        <div class="input-area">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Name" value="{{posts.name}}" required />
+                <textarea name="body" placeholder="What's happening" maxlength=140 required>{{ posts.body }}</textarea> 
+                {% if posts.img %}
+                     <img class="post-img" src="{{posts.img.url}}" alt="">
+                {% endif %} </br>
+                <div class="bottom-area">
+                    <input class="form-control form-control-sm" type="file" name="img"/>
+                  
+                    <div class="edit_btn">
+                        <a href="/">
+                            <input  type="button" value="Cancel" />
+                        </a>
+                            <input  type="submit" value="Update" />
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </section>
+    <div class="ditch"></div>
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+
+

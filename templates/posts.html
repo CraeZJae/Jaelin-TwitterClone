@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<section class="content">
+     <section class="main">
+      <div class="main-header">
+        <img src="{% static 'img/The-Flash.png' %}">
+        <h1>Home</h1>
+      </div>
+     <section class="posts_form">
+      <div class="my-icon">
+          <img src="{% static 'img/profile.png' %}">
+      </div>
+      <div class="input-area"> 
+       <form action="/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+         <input type="text" name="name" placeholder="Your name" malength="14" required />
+         <textarea name="body" placeholder="What's happening?" maxlength="140" required></textarea>
+         <div class="bottom-area">
+           <div class="mb-0">
+            <input class="form-control form-control-sm" type="file" name ='img' >
+           </div> 
+          <button class="btn" type="submit">Tweet</button>
+          </div>
+       </form>
+      </div>
+    </section>
+    <div class="ditch"></div>
+    <section class="posts">
+        <ul>
+           {% for post in posts %}
+           <li>
+             <div class="logo">
+              <img src="{% static 'img/profile.png' %}"/>
+             </div>
+             <div class="name_body">
+               <div class="name">{{ post.name }}</div>
+               <div class="datetime">{{ post.created_at }}</div>
+               <p>{{ post.body }}</p>
+               {% if post.img.url  %}
+               <img class="post-img" src="{{post.img.url}}" alt="">
+               {% endif %} <br>
+               <a href="/delete/{{post.id}}/">Delete</a>
+               <a href="/edit/{{post.id}}/">Edit</a>
+               <div>
+                 <a href="/like/{{post.id}}/" >
+                  <img src= "{% static 'img/like.png' %}"  style="width: 30px;"/>{{post.likes}}
+                 </a>
+                </div>
+             </div>
+            </li> 
+           {% endfor %}
+         </ul>
+         
+    </section>
+</section>
+
+
+
+{% endblock %}
